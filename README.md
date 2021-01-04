@@ -29,18 +29,34 @@ contract EthGov{
 
 ## Mocha tests
 ```
-  EthGov
+  futuregov
     ✓ is correctly deployed on ganache-cli test network.
-    ✓ allows candidates to register. (58ms)
-    ✓ does't allow a candidate to register twice. (85ms)
-    ✓ allows users to vote. (121ms)
-    ✓ allows users to switch their vote. (133ms)
-    ✓ does't allow users to vote invalid candidate (97ms)
-    ✓ allow users to claim for governance change. (158ms)
-    ✓ allows users to switch their vote. (212ms)
+107343
+    ✓ allows candidates to register. (64ms)
+    ✓ does't allow a candidate to register twice. (98ms)
+    ✓ allows users to vote. (125ms)
+    ✓ allows users to switch their vote. (137ms)
+    ✓ does't allow users to vote invalid candidate (87ms)
+    ✓ allow users to claim for governance change. (153ms)
+    ✓ allows users to switch their vote. (223ms)
+Gas for candidate register:  107427
+Gas for candidate register:  92427
+    ✓ consumes gas for candidate registration. (57ms)
+Gas for voting:  66757
+Gas for voting:  43732
+Gas for voting:  43732
+Gas for voting:  43732
+Gas for voting:  43732
+Gas for voting:  43732
+Gas for voting:  43732
+Gas for voting:  31132
+Gas for voting:  31132
+Gas for voting:  31132
+    ✓ consumes gas for voting. (352ms)
 
 
-  8 passing (1s)
+  10 passing (2s)
+
 ```
 
 ## Contributors

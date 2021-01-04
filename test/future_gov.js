@@ -33,7 +33,7 @@ beforeEach(async ()=>{
 
 
 
-describe('fugov', ()=>{
+describe('futuregov', ()=>{
     it('is correctly deployed on ganache-cli test network.', async()=>{
         assert.ok(await instance.options.address);
     });
@@ -111,7 +111,7 @@ describe('fugov', ()=>{
         
         await fugov.claimChange().send({from: accounts[0], gas: maxGas});
         const b = await fugov.giveWinner().call();
-        // console.log(b['1']);49161 36561
+        // console.log(b['1']);
 
         // console.log("Votes for A: ", await fugov.totalVotes(accounts[0]).call());
         // console.log("Votes for B: ", await fugov.totalVotes(accounts[1]).call());
@@ -125,8 +125,8 @@ describe('fugov', ()=>{
         .send({from: accounts[1], gas: maxGas})).gasUsed;
         
         
-        console.log(gas1);
-        console.log(gas2);
+        console.log("Gas for candidate register: ", gas1);
+        console.log("Gas for candidate register: ", gas2);
     });
 
     it('consumes gas for voting.', async()=>{
@@ -143,7 +143,7 @@ describe('fugov', ()=>{
             const receipt = await fugov.vote(accounts[rand()])
             .send({from: accounts[0], gas: maxGas});    
 
-            console.log(receipt.gasUsed);
+            console.log("Gas for voting: ", receipt.gasUsed);
         }
     });
 });
