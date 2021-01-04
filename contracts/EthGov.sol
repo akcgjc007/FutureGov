@@ -37,8 +37,13 @@ contract EthGov{
 		if(retStatus){ return; }
 
 
-		totalVotes[hasVotedTo[msg.sender]]--;
+
+		if(totalVotes[hasVotedTo[msg.sender]] > 0){
+			totalVotes[hasVotedTo[msg.sender]]--;
+		}
 		totalVotes[myCandidate]++;
+
+		hasVotedTo[msg.sender] = myCandidate;
 	}
 
 	function claimChange() public{
