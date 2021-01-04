@@ -110,10 +110,10 @@ describe('EthGov', ()=>{
         // console.log("Votes for B: ", await ethgov.totalVotes(accounts[1]).call());
     });
 
-    
+    it('consumes gas for registration.', async()=>{
+        await ethgov.candidateRegister("John Doe").send({from: accounts[0]});
+        
 
 
-
-
-
+    });
 });

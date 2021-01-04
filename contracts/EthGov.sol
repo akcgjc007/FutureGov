@@ -9,32 +9,25 @@ contract EthGov{
 
 	struct Cand{address addr; string name;}
 	Cand[] public candidates;
+	mapping(address=>bool) isCandidate;
 	 
 
 	Cand currentLeader;
 	
 	function candidateRegister(string memory myName) public {
-		for(uint i = 0; i<candidates.length; i++){
-			if(
-			    msg.sender == candidates[i].addr || 
-			    (keccak256(abi.encodePacked(candidates[i].name)) 
-			        == keccak256(abi.encodePacked(myName))
-		        )
-	    	    ){
-				return;
-			}
+		if(isCandidate[msg.sender]){
+			return;
 		}
+		
 		candidates.push(Cand({addr: msg.sender, name: myName }));
+		isCandidate[msg.sender] = true;
 	}
 
 	function vote(address myCandidate) public{
 		bool retStatus = true;
-		for(uint i = 0; i<candidates.length; i++){
-			if(myCandidate == candidates[i].addr){
-				retStatus = false;
-			}
+		if(!isCandidate[myCandidate]){
+			return;
 		}
-		if(retStatus){ return; }
 
 
 
