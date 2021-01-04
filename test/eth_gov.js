@@ -1,9 +1,11 @@
 const assert = require('assert');
+const { ENGINE_METHOD_DIGESTS } = require('constants');
 
 const ganache = require('ganache-cli');
 const Web3 =  require('web3');
 
-const options = { gasLimit: 10000000, a: 10 };
+const maxAccounts = 100;
+const options = { gasLimit: 10000000, a: maxAccounts };
 const provider = ganache.provider(options);
 
 const web3 = new Web3(provider);
@@ -105,15 +107,41 @@ describe('EthGov', ()=>{
         
         await ethgov.claimChange().send({from: accounts[0]});
         const b = await ethgov.giveWinner().call();
-        // console.log(b['1']);
+        // console.log(b['1']);49161
+36561
+
         // console.log("Votes for A: ", await ethgov.totalVotes(accounts[0]).call());
         // console.log("Votes for B: ", await ethgov.totalVotes(accounts[1]).call());
     });
 
-    it('consumes gas for registration.', async()=>{
-        await ethgov.candidateRegister("John Doe").send({from: accounts[0]});
+    it('consumes gas for candidate registration.', async()=>{
         
+        const gas1 = (await ethgov.candidateRegister("Ram vinod bulla")
+        .send({from: accounts[0]})).gasUsed;
+        const gas2 = (await ethgov.candidateRegister("Ram vinod bulla")
+        .send({from: accounts[1]})).gasUsed;
+        
+        
+        console.log("Gas used per candidate registration: ", gas2);
+    });
 
+    it('consumes gas for voting.', async()=>{
+        var totalGas = 0;
 
+        await ethgov.candidateRegister("John Doe")
+        .send({from: accounts[0]});
+        await ethgov.candidateRegister("Dohn Joe")
+        .send({from: accounts[1]});
+
+        rand = ()=>Math.floor(Math.random()*100%2);
+
+        for(var i = 0; i<maxAccounts; i++){
+            const receipt = await ethgov.vote(accounts[rand()])
+            .send({from: accounts[0]});    
+
+            // console.log(receipt.gasUsed);
+        }
+
+        console.log("Average gas used per voting: ", (49161+36561)/2);
     });
 });
