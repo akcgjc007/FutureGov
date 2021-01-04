@@ -1,11 +1,10 @@
 const assert = require('assert');
-const { ENGINE_METHOD_DIGESTS } = require('constants');
 
 const ganache = require('ganache-cli');
 const Web3 =  require('web3');
 
-const maxAccounts = 100;
-const options = { gasLimit: 10000000, a: maxAccounts };
+const maxAccounts = 10;
+const options = { gasLimit: '10000000', a: maxAccounts};
 const provider = ganache.provider(options);
 
 const web3 = new Web3(provider);
@@ -13,8 +12,7 @@ const web3 = new Web3(provider);
 const compiledFile = require('./../build/EthGov.json');
 
 
-let accounts;
-const minGas = '1000000';
+let accounts;   
 let instance;
 let ethgov;
 
@@ -22,8 +20,8 @@ beforeEach(async ()=>{
     accounts = await web3.eth.getAccounts();
     
     instance = await new web3.eth.Contract(compiledFile.abi)
-    .deploy({ data: compiledFile.evm.bytecode.object })
-    .send({ from: accounts[0], gas: '10000000'});
+    .deploy({ data: compiledFile.evm.bytecode.object})
+    .send({ from: accounts[0]});
 
     ethgov = instance.methods;
 
@@ -122,7 +120,8 @@ describe('EthGov', ()=>{
         .send({from: accounts[1]})).gasUsed;
         
         
-        console.log("Gas used per candidate registration: ", gas2);
+        console.log(gas1);
+        console.log(gas2);
     });
 
     it('consumes gas for voting.', async()=>{
@@ -139,9 +138,8 @@ describe('EthGov', ()=>{
             const receipt = await ethgov.vote(accounts[rand()])
             .send({from: accounts[0]});    
 
-            // console.log(receipt.gasUsed);
+            console.log(receipt.gasUsed);
         }
 
-        console.log("Average gas used per voting: ", (49161+36561)/2);
     });
 });

@@ -29,8 +29,6 @@ contract EthGov{
 			return;
 		}
 
-
-
 		if(totalVotes[hasVotedTo[msg.sender]] > 0){
 			totalVotes[hasVotedTo[msg.sender]]--;
 		}
