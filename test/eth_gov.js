@@ -6,7 +6,7 @@ const provider = ganache.provider();
 const web3 = new Web3(provider);
 
 const fs = require('fs-extra');
-const compiledFile = require('./../build/MyContract.json');
+const compiledFile = require('./../build/EthGov.json');
 
 
 let accounts;
@@ -23,13 +23,10 @@ beforeEach(async ()=>{
 });
 
 
-describe('MyContract', ()=>{
+describe('EthGov', ()=>{
     it('is correctly deploying on the network.', async()=>{
         // assert(instance);
 
-        await instance.methods.func().send({
-            from: accounts[0],
-            gas: '1000000'
-        });
+        
     });
 });
