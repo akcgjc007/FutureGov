@@ -1,6 +1,6 @@
-# EthGov
+# Future Gov
 ## Intro
-**EthGov** is a governance system which allows users to control their governance from their ethereum wallet. They can pay some fee and change their vote any time by paying the minimal transaction fee. After voting for a candidate, anyone can claim for governance change, which will then calculate if their needs to be a change of governance.
+**FutureGov** is a governance system which allows users to control their governance from their ethereum wallet. They can pay some fee and change their vote any time by paying the minimal transaction fee. After voting for a candidate, anyone can claim for governance change, which will then calculate if their needs to be a change of governance.
 
 ## Features
  - Allows candidates to register
@@ -10,7 +10,7 @@
 
 ## Solidity Contract
 ```
-contract EthGov{
+contract FutureGov{
 	mapping(address=>address) hasVotedTo;
 	mapping(address=>uint) public totalVotes;
 
