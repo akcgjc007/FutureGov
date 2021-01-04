@@ -1,11 +1,13 @@
 # Future Gov
+<img width="600" src="./__sample/a.jpg">
+
 ## Intro
 **FutureGov** is a governance system which allows users to control their governance from their ethereum wallet. They can pay some fee and change their vote any time by paying the minimal transaction fee. After voting for a candidate, anyone can claim for governance change, which will then calculate if their needs to be a change of governance.
 
 ## Features
  - Allows candidates to register
  - Allows users to vote 
- - Allows users to **switch their vote anytime**
+ - Allows users to **switch their vote any number of times**
  - Allows anyone to ask for *governance change* claim
 
 ## Solidity Contract
