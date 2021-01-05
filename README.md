@@ -10,6 +10,8 @@
  - Allows users to **switch their vote any number of times**
  - Allows anyone to ask for *governance change* claim
 
+
+
 ## Solidity Contract
 ```
 contract FutureGov{
@@ -70,3 +72,132 @@ Gas for voting:  31132
         </a>
     </td></tr>
 </table>
+
+## to-do 
+ - Security vulnerability testing
+
+## Securify2 test results:
+```
+Severity:    LOW
+Pattern:     External Calls of Functions
+Description: A public function that is never called within the
+             contract should be marked as external
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        17
+Source: 
+> 
+>     function setCallee(address newCallee) public onlyOwner {
+>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>         callee = newCallee;
+
+
+Severity:    LOW
+Pattern:     External Calls of Functions
+Description: A public function that is never called within the
+             contract should be marked as external
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        21
+Source: 
+> 
+>     function forward(bytes memory _data) public {
+>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>         callee.delegatecall(_data);
+
+
+Severity:    INFO
+Pattern:     Low Level Calls
+Description: Usage of <address>.call should be avoided
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        22
+Source: 
+>     function forward(bytes memory _data) public {
+>         callee.delegatecall(_data);
+>         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+>     }
+
+
+Severity:    MEDIUM
+Pattern:     Missing Input Validation
+Description: Method arguments must be sanitized before they are used
+             in computations.
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        17
+Source: 
+> 
+>     function setCallee(address newCallee) public onlyOwner {
+>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>         callee = newCallee;
+
+
+Severity:    MEDIUM
+Pattern:     Missing Input Validation
+Description: Method arguments must be sanitized before they are used
+             in computations.
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        21
+Source: 
+> 
+>     function forward(bytes memory _data) public {
+>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>         callee.delegatecall(_data);
+
+
+Severity:    INFO
+Pattern:     State variables default visibility
+Description: Visibility of state variables should be stated explicitly
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        4
+Source: 
+> contract UnrestrictedDelegateCall2 {
+>     address callee;
+>     ^^^^^^^^^^^^^^
+>     address owner;
+
+
+Severity:    INFO
+Pattern:     State variables default visibility
+Description: Visibility of state variables should be stated explicitly
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        5
+Source: 
+>     address callee;
+>     address owner;
+>     ^^^^^^^^^^^^^
+> 
+
+
+Severity:    CRITICAL
+Pattern:     Unrestricted Ether Flow
+Description: The execution of ether flows should be restricted to an
+             authorized set of users.
+Type:        Warning
+Contract:    UnrestrictedDelegateCall2
+Line:        22
+Source: 
+>     function forward(bytes memory _data) public {
+>         callee.delegatecall(_data);
+>         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+>     }
+
+
+Severity:    MEDIUM
+Pattern:     Unused Return Pattern
+Description: The value returned by an external function call is never
+             used
+Type:        Violation
+Contract:    UnrestrictedDelegateCall2
+Line:        22
+Source: 
+>     function forward(bytes memory _data) public {
+>         callee.delegatecall(_data);
+>         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+>     }
+
+```
