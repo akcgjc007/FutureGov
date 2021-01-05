@@ -203,5 +203,5 @@ Source:
 ```
 
 ## Vulnerabilities removed
- - Visibility set to `external` explicitly
+ - Function visibility set to `external`.
  - Require statements added.
