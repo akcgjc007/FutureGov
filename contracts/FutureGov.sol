@@ -2,8 +2,6 @@
 pragma solidity ^0.8.0;
 
 contract FutureGov{
-	uint minGas = 1000000;
-
 	mapping(address=>address) hasVotedTo;
 	mapping(address=>uint) public totalVotes;
 
@@ -14,20 +12,16 @@ contract FutureGov{
 
 	Cand currentLeader;
 	
-	function candidateRegister(string memory myName) public {
-		if(isCandidate[msg.sender]){
-			return;
-		}
+	function candidateRegister(string memory myName) external {
+        require(bytes(myName).length <= 100 && bytes(myName).length >=0);
+		require(!isCandidate[msg.sender]);
 		
 		candidates.push(Cand({addr: msg.sender, name: myName }));
 		isCandidate[msg.sender] = true;
 	}
 
-	function vote(address myCandidate) public{
-		bool retStatus = true;
-		if(!isCandidate[myCandidate]){
-			return;
-		}
+	function vote(address myCandidate) external {
+		require(isCandidate[myCandidate]);
 
 		if(totalVotes[hasVotedTo[msg.sender]] > 0){
 			totalVotes[hasVotedTo[msg.sender]]--;
@@ -37,7 +31,7 @@ contract FutureGov{
 		hasVotedTo[msg.sender] = myCandidate;
 	}
 
-	function claimChange() public{
+	function claimChange() external {
 		currentLeader = candidates[0];
 		
 		for(uint i = 0; i<candidates.length; i++){
@@ -47,7 +41,7 @@ contract FutureGov{
 		}
 	}
 	
-	function giveWinner() public view returns (address, string memory){
+	function giveWinner() external view returns (address, string memory){
 	    return (currentLeader.addr, currentLeader.name);
 	}
 }

@@ -201,3 +201,7 @@ Source:
 >     }
 
 ```
+
+## Vulnerabilities removed
+ - Visibility set to `external` explicitly
+ - Require statements added.
